@@ -25,6 +25,9 @@ jobs:
           python-version: '3.13'
           enable-cache: true
 
+      - name: Create virtual environment
+        run: uv venv
+
       - name: Install autoTable
         run: uv pip install git+https://github.com/gouzil/autoTable@e599a51a7b230d32227c27e6f6d3ce931a2adebe
 
