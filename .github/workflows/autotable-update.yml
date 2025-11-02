@@ -29,7 +29,7 @@ jobs:
         run: uv venv
 
       - name: Install autoTable
-        run: uv pip install git+https://github.com/gouzil/autoTable@e599a51a7b230d32227c27e6f6d3ce931a2adebe
+        run: pip install git+https://github.com/gouzil/autoTable@e599a51a7b230d32227c27e6f6d3ce931a2adebe
 
       - name: Run autotable issue-update
         run: autotable issue-update ${{ inputs.owner_repo }} ${{ inputs.issue_number }} ${{ env.PAT }}
