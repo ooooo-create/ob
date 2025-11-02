@@ -1,0 +1,32 @@
+name: Update the issues status which used autoTable
+
+on:
+  workflow_dispatch:
+    inputs:
+      owner_repo:
+        description: 'The owner/repo of the issue to update'
+        required: true
+        type: string
+      issue_number:
+        description: 'The issue number to update'
+        required: true
+        type: number
+
+env:
+  PAT: ${{ secrets.PAT }}
+
+jobs:
+  update-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          python-version: '3.13'
+          enable-cache: true
+
+      - name: Install autoTable
+        run: uv pip install git+https://github.com/gouzil/autoTable@e599a51a7b230d32227c27e6f6d3ce931a2adebe
+
+      - name: Run autotable issue-update
+        run: uv autotable issue-update ${{ inputs.owner_repo }} ${{ inputs.issue_number }} ${{ env.PAT }}
