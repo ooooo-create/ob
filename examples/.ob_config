@@ -1,0 +1,12 @@
+[typos 升级 1.38.1]
+repo = PaddlePaddle/Paddle
+issue_number = 76085
+
+[typos 引入]
+repo = PaddlePaddle/docs
+issue_number = 7543
+
+[typos 升级 3.19.0]
+repo = PaddlePaddle/docs
+issue_number = 7599
+
