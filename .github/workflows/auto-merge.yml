@@ -40,6 +40,8 @@ jobs:
       - name: checkout PR branch
         run: |
           gh pr checkout ${{ inputs.pr_number }} --repo ${{ inputs.owner_repo }}
+        env:
+          GH_TOKEN: ${{ env.PAT }}
 
       - name: Merge upstream branch
         run: |
