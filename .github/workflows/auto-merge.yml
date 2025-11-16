@@ -46,10 +46,11 @@ jobs:
       - name: Add upstream remote
         run: |
             git remote add upstream https://github.com/${{ inputs.owner_repo }}.git
-            git fetch upstream
+            git fetch upstream ${{ inputs.upstream_branch }}
 
       - name: Merge upstream branch
         run: |
+          git config pull.rebase false
           git pull upstream ${{ inputs.upstream_branch }}
 
       - name: Push changes
