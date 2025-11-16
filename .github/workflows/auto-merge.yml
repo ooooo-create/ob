@@ -1,0 +1,52 @@
+name: Merge the upstream to target branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      owner_repo:
+        description: 'The owner/repo of the issue to update'
+        required: true
+        type: string
+      pr_number:
+        description: 'The issue number to update'
+        required: true
+        type: number
+      upstream_branch:
+        description: 'The upstream branch to merge from'
+        required: true
+        type: string
+
+env:
+  PAT: ${{ secrets.PAT }}
+
+jobs:
+  merge-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Parse repo name
+        id: parse_repo
+        run: |
+          # extract repo name from owner/repo input and expose as step output
+          repo_full="${{ inputs.owner_repo }}"
+          repo_name="${repo_full##*/}"
+          echo "repo=$repo_name" >> $GITHUB_OUTPUT
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          repository: ooooo/${{ steps.parse_repo.outputs.repo }}
+          token: ${{ env.PAT }}
+
+      - name: checkout PR branch
+        run: |
+          gh pr checkout ${{ inputs.pr_number }} --repo ${{ inputs.owner_repo }}
+
+      - name: Merge upstream branch
+        run: |
+          git pull upstream ${{ inputs.upstream_branch }}
+
+      - name: Push changes
+        run: |
+          git push
+        env:
+          GITHUB_TOKEN: ${{ env.PAT }}
