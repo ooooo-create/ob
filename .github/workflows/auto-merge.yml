@@ -51,6 +51,8 @@ jobs:
       - name: Merge upstream branch
         run: |
           git config pull.rebase false
+          git config --global user.email "3164076421@qq.com"
+          git config --global user.name "ooooo"
           git pull upstream ${{ inputs.upstream_branch }}
 
       - name: Push changes
