@@ -43,6 +43,11 @@ jobs:
         env:
           GH_TOKEN: ${{ env.PAT }}
 
+      - name: Add upstream remote
+        run: |
+            git remote add upstream https://github.com/${{ inputs.owner_repo }}.git
+            git fetch upstream
+
       - name: Merge upstream branch
         run: |
           git pull upstream ${{ inputs.upstream_branch }}
