@@ -34,7 +34,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          repository: ooooo/${{ steps.parse_repo.outputs.repo }}
+          repository: ooooo-create/${{ steps.parse_repo.outputs.repo }}
           token: ${{ env.PAT }}
 
       - name: checkout PR branch
